@@ -1,0 +1,39 @@
+cmake_minimum_required(VERSION 3.22)
+
+project(MYGAME VERSION 1.0)
+
+add_executable(${PROJECT_NAME} src/main.cpp)
+
+include_directories(src)
+
+add_subdirectory(src/Game)
+add_subdirectory(src/Scene)
+add_subdirectory(deps/SDL)
+add_subdirectory(deps/SDL_image)
+add_subdirectory(deps/glm)
+
+target_include_directories(
+    ${PROJECT_NAME} PUBLIC src/Game
+    ${PROJECT_NAME} PUBLIC src/Scene
+    ${PROJECT_NAME} PUBLIC deps/SDL/src
+    ${PROJECT_NAME} PUBLIC deps/SDL_image
+    ${PROJECT_NAME} PUBLIC deps/glm
+)
+
+target_link_directories(
+    ${PROJECT_NAME} PRIVATE src/Game
+    ${PROJECT_NAME} PRIVATE src/Scene
+    ${PROJECT_NAME} PRIVATE deps/SDL/src
+    ${PROJECT_NAME} PRIVATE deps/SDL_image
+    ${PROJECT_NAME} PRIVATE deps/glm
+)
+
+target_link_libraries(
+    ${PROJECT_NAME}
+    game
+    Scene
+    SDL2
+    SDL2main
+    SDL2_image
+    glm
+)
